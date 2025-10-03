@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlockedAds</title>
+  <link rel="stylesheet" href="blockedads-popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <img src="../icons/icon48.png" alt="BlockedAds" class="logo-icon">
+        <h1>BlockedAds</h1>
+      </div>
+      <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Stats Section -->
+      <div class="stats-section">
+        <div class="stat-item">
+          <div class="stat-icon">🛡️</div>
+          <div class="stat-info">
+            <div class="stat-number" id="adsBlocked">0</div>
+            <div class="stat-label">ads blocked today</div>
+          </div>
+        </div>
+        
+        <div class="stat-item">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <div class="stat-number" id="dataSaved">0</div>
+            <div class="stat-label">MB data saved</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Control Section -->
+      <div class="control-section">
+        <div class="toggle-container">
+          <label class="toggle-label">
+            <input type="checkbox" id="blockingToggle" class="toggle-input">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">Ad Blocking</span>
+          </label>
+        </div>
+        
+        <div class="status-indicator" id="statusIndicator">
+          <span class="status-dot active"></span>
+          <span class="status-text">Active</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="actions-section">
+        <button class="action-btn" id="whitelistBtn">
+          <span class="btn-icon">⚪</span>
+          <span class="btn-text">Whitelist Site</span>
+        </button>
+        
+        <button class="action-btn" id="statsBtn">
+          <span class="btn-icon">📈</span>
+          <span class="btn-text">View Stats</span>
+        </button>
+      </div>
+
+      <!-- Whitelist Section -->
+      <div class="whitelist-section" id="whitelistSection" style="display: none;">
+        <h3>Whitelisted Sites</h3>
+        <div class="whitelist-list" id="whitelistList">
+          <!-- Whitelist items will be populated here -->
+        </div>
+        <div class="add-whitelist">
+          <input type="text" id="whitelistInput" placeholder="Enter domain (e.g., example.com)">
+          <button id="addWhitelistBtn">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-info">
+        <span id="currentSite">Current site: <span id="currentDomain">-</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="blockedads-popup.js"></script>
+</body>
+</html>
