@@ -1,0 +1,81 @@
+! Title: BlockedAds EasyList (Basic)
+! Description: Basic ad blocking rules for BlockedAds MVP
+! Version: 1.0.0
+! Last modified: 2024-01-01
+! Homepage: https://easylist.to/
+
+! Google Ads
+||googleadservices.com^
+||googlesyndication.com^
+||doubleclick.net^
+||googletagmanager.com^
+||googletagservices.com^
+||google-analytics.com^
+||googleadservices.com^$third-party
+
+! Facebook Ads
+||facebook.com/tr^
+||facebook.net^
+||connect.facebook.net^
+||fbcdn.net^
+
+! Amazon Ads
+||amazon-adsystem.com^
+||adsystem.amazon.com^
+||aaxads.com^
+||amazon-adsystem.com^$third-party
+
+! Yahoo Ads
+||ads.yahoo.com^
+||adsystem.yahoo.com^
+||yimg.com^$domain=~yimg.com
+
+! Microsoft Ads
+||bing.com/ads^
+||msn.com/ads^
+||ads1.msn.com^
+||ads2.msn.com^
+
+! Twitter Ads
+||ads-twitter.com^
+||twitter.com/i/adsct^
+||ads-api.twitter.com^
+
+! Element Hiding Rules
+##div[class*="ad"]
+##div[id*="ad"]
+##div[class*="banner"]
+##div[id*="banner"]
+##div[class*="popup"]
+##div[id*="popup"]
+##iframe[src*="ads"]
+##iframe[src*="doubleclick"]
+##iframe[src*="googlesyndication"]
+
+! Common ad containers
+##.advertisement
+##.ad-banner
+##.ad-container
+##.ad-wrapper
+##.adsense
+##.google-ad
+##.sponsored
+##.promo
+##.banner-ad
+##.sidebar-ad
+##.header-ad
+##.footer-ad
+
+! Popup blocking
+##div[class*="modal"]
+##div[class*="overlay"]
+##div[class*="popup"]
+##div[id*="modal"]
+##div[id*="overlay"]
+##div[id*="popup"]
+
+! Exception rules for legitimate content
+@@||google.com/recaptcha^
+@@||gstatic.com^
+@@||googleapis.com^
+@@||googleusercontent.com^

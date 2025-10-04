@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <!-- Navigation Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#f8f9fa"
+        android:elevation="2dp">
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="←"
+            android:textSize="18sp"
+            android:background="@drawable/nav_button"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/forwardBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="→"
+            android:textSize="18sp"
+            android:background="@drawable/nav_button"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/refreshBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="🔄"
+            android:textSize="16sp"
+            android:background="@drawable/nav_button"
+            android:layout_marginEnd="8dp" />
+
+        <EditText
+            android:id="@+id/urlInput"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="Enter URL or search..."
+            android:padding="12dp"
+            android:background="@drawable/url_input_background"
+            android:textSize="14sp"
+            android:imeOptions="actionGo"
+            android:inputType="textUri" />
+
+        <Button
+            android:id="@+id/goBtn"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:text="Go"
+            android:textSize="14sp"
+            android:background="@drawable/primary_button"
+            android:textColor="#ffffff"
+            android:layout_marginStart="4dp" />
+
+    </LinearLayout>
+
+    <!-- Stats Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#e9ecef"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/statsText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🛡️ 0 ads blocked | 📊 0.0 MB saved"
+            android:textSize="12sp"
+            android:textColor="#6c757d" />
+
+    </LinearLayout>
+
+    <!-- WebView -->
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
