@@ -1,8 +1,8 @@
 {
-  "name": "blockedads-mvp",
+  "name": "blockedads",
   "version": "1.0.0",
-  "description": "BlockedAds MVP - Multi-platform ad blocking solution",
-  "main": "index.js",
+  "description": "An efficient blocker for Chromium and Firefox. Fast and lean.",
+  "main": "test-runner.js",
   "scripts": {
     "test": "jest",
     "test:chrome": "jest tests/blockedads-chrome-tests.js",
@@ -17,14 +17,16 @@
   },
   "keywords": [
     "ad-blocker",
-    "privacy",
-    "browser-extension",
-    "mobile-app",
+    "youtube",
+    "ublock-origin",
     "chrome-extension",
-    "android"
+    "android-app",
+    "privacy",
+    "tracking-protection",
+    "fast-and-lean"
   ],
   "author": "BlockedAds Team",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "devDependencies": {
     "@types/chrome": "^0.0.254",
     "@types/jest": "^29.5.8",
@@ -40,5 +42,13 @@
   },
   "dependencies": {
     "webextension-polyfill": "^0.10.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blockedads/blockedads.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blockedads/blockedads/issues"
+  },
+  "homepage": "https://github.com/blockedads/blockedads#readme"
 }

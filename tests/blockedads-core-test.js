@@ -1,6 +1,6 @@
 /**
  * BlockedAds Core Filter Engine - Test Version
- * Standalone version for testing without Chrome APIs
+ * uBlock Origin-inspired standalone version for testing
  */
 
 class BlockedAdsFilterEngine {
@@ -15,12 +15,13 @@ class BlockedAdsFilterEngine {
     };
     this.isEnabled = true;
     this.whitelist = new Set();
+    this.filterLists = new Map();
   }
 
   async init() {
     try {
       await this.loadSettings();
-      await this.loadFilterRules();
+      await this.loadFilterLists();
     } catch (error) {
       console.error('BlockedAds: Failed to initialize', error);
     }
@@ -32,27 +33,87 @@ class BlockedAdsFilterEngine {
     this.whitelist = new Set();
   }
 
-  async loadFilterRules() {
+  async loadFilterLists() {
     try {
-      // Mock filter rules for testing
-      const mockRules = `
-        ! Test filter list
-        ||googleadservices.com^
-        ||doubleclick.net^
-        ||facebook.com/tr^
-        ||amazon-adsystem.com^
-        ##.advertisement
-        ##div[class*="ad"]
-        @@||google.com/recaptcha^
-      `;
-      this.parseFilterRules(mockRules);
+      // Mock uBlock Origin filter lists for testing
+      const mockFilterLists = [
+        {
+          name: 'EasyList',
+          content: `
+            ! EasyList - Primary ad blocking rules
+            ||googleadservices.com^
+            ||googlesyndication.com^
+            ||doubleclick.net^
+            ||facebook.com/tr^
+            ||amazon-adsystem.com^
+            ||ads.yahoo.com^
+            ||adsystem.yahoo.com^
+            ||ads-twitter.com^
+            ||twitter.com/i/adsct^
+            ||scorecardresearch.com^
+            ||quantserve.com^
+            ||outbrain.com^
+            ##.advertisement
+            ##div[class*="ad"]
+            ##.banner-ad
+            @@||google.com/recaptcha^
+          `
+        },
+        {
+          name: 'EasyPrivacy',
+          content: `
+            ! EasyPrivacy - Privacy protection rules
+            ||google-analytics.com^
+            ||googletagmanager.com^
+            ||facebook.net^
+            ||connect.facebook.net^
+            ||amazon-adsystem.com^
+            ||adsystem.amazon.com^
+            ||aaxads.com^
+            ##.analytics
+            ##.tracking
+          `
+        },
+        {
+          name: 'uBlock Origin Filters',
+          content: `
+            ! uBlock Origin additional filters
+            ||googletagservices.com^
+            ||googleadservices.com/pagead/ads^
+            ||doubleclick.net/ads^
+            ||facebook.com/tr^
+            ||amazon-adsystem.com/aax^
+            ##.ytp-ad-player-overlay
+            ##.ytp-ad-text
+            ##.ytp-ad-skip-button
+          `
+        },
+        {
+          name: 'YouTube Ad Blocking',
+          content: `
+            ! YouTube-specific ad blocking
+            ##.ytd-promoted-sparkles-web-renderer
+            ##.ytd-ad-slot-renderer
+            ##.ytd-promoted-video-renderer
+            ##.ytd-video-masthead-ad-v3-renderer
+            ##.ytd-compact-promoted-video-renderer
+            ##[aria-label*="sponsored"]
+            ##[aria-label*="promoted"]
+          `
+        }
+      ];
+
+      for (const list of mockFilterLists) {
+        this.filterLists.set(list.name, list);
+        this.parseFilterRules(list.content, list.name);
+      }
     } catch (error) {
-      console.error('BlockedAds: Failed to load filter rules', error);
+      console.error('BlockedAds: Failed to load filter lists', error);
       this.loadBasicRules();
     }
   }
 
-  parseFilterRules(text) {
+  parseFilterRules(text, listName = 'default') {
     const lines = text.split('\n');
     
     for (const line of lines) {
@@ -63,20 +124,21 @@ class BlockedAdsFilterEngine {
       }
 
       if (trimmed.startsWith('@@')) {
-        this.exceptionRules.push(this.createRule(trimmed.substring(2)));
+        this.exceptionRules.push(this.createRule(trimmed.substring(2), 'exception'));
       } else if (trimmed.includes('##')) {
         this.elementRules.push(this.createElementRule(trimmed));
       } else {
-        this.rules.push(this.createRule(trimmed));
+        this.rules.push(this.createRule(trimmed, 'network'));
       }
     }
   }
 
-  createRule(pattern) {
+  createRule(pattern, type = 'network') {
     return {
       pattern: pattern,
       regex: this.patternToRegex(pattern),
-      type: this.getRuleType(pattern)
+      type: type,
+      priority: 1
     };
   }
 
@@ -85,12 +147,13 @@ class BlockedAdsFilterEngine {
     return {
       domain: domain || '*',
       selector: selector,
-      regex: this.patternToRegex(domain || '*')
+      regex: this.patternToRegex(domain || '*'),
+      type: 'cosmetic'
     };
   }
 
   patternToRegex(pattern) {
-    // Handle Adblock patterns
+    // Handle Adblock patterns (uBlock Origin compatible)
     let regex = pattern;
     
     // Remove anchor markers
@@ -125,11 +188,16 @@ class BlockedAdsFilterEngine {
       '||facebook.com/tr^',
       '||amazon-adsystem.com^',
       '||ads.yahoo.com^',
-      '||adsystem.yahoo.com^'
+      '||adsystem.yahoo.com^',
+      '||ads-twitter.com^',
+      '||twitter.com/i/adsct^',
+      '||scorecardresearch.com^',
+      '||quantserve.com^',
+      '||outbrain.com^'
     ];
 
     for (const rule of basicRules) {
-      this.rules.push(this.createRule(rule));
+      this.rules.push(this.createRule(rule, 'network'));
     }
   }
 
@@ -139,10 +207,12 @@ class BlockedAdsFilterEngine {
     const domain = this.extractDomain(url);
     if (this.whitelist.has(domain)) return false;
 
+    // Check exception rules first
     for (const rule of this.exceptionRules) {
       if (rule.regex.test(url)) return false;
     }
 
+    // Check network rules
     for (const rule of this.rules) {
       if (rule.regex.test(url) || rule.regex.test(domain)) {
         this.stats.adsBlocked++;
@@ -151,6 +221,20 @@ class BlockedAdsFilterEngine {
       }
     }
 
+    return false;
+  }
+
+  shouldHideElement(selector, domain = '*') {
+    if (!this.isEnabled) return false;
+    
+    for (const rule of this.elementRules) {
+      if (rule.domain === '*' || rule.domain === domain) {
+        if (rule.selector === selector) {
+          return true;
+        }
+      }
+    }
+    
     return false;
   }
 
@@ -177,6 +261,33 @@ class BlockedAdsFilterEngine {
 
   async toggleBlocking(enabled) {
     this.isEnabled = enabled;
+  }
+
+  getFilterListStats() {
+    return {
+      totalRules: this.rules.length + this.elementRules.length + this.exceptionRules.length,
+      networkRules: this.rules.length,
+      cosmeticRules: this.elementRules.length,
+      exceptionRules: this.exceptionRules.length,
+      filterLists: Array.from(this.filterLists.keys())
+    };
+  }
+
+  // uBlock Origin compatibility methods
+  getStats() {
+    return {
+      adsBlocked: this.stats.adsBlocked,
+      dataSaved: this.stats.dataSaved,
+      runtime: Math.floor((Date.now() - this.stats.startTime) / 1000 / 60)
+    };
+  }
+
+  getEnabled() {
+    return this.isEnabled;
+  }
+
+  getWhitelist() {
+    return Array.from(this.whitelist);
   }
 }
 

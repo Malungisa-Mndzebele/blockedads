@@ -9,14 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Main Activity for BlockedAds Android App
- * Provides basic browser functionality with ad blocking
+ * Based on uBlock Origin architecture
  */
 public class BlockedAdsActivity extends AppCompatActivity {
     
     private TextView statsText;
-    private Button openBrowserBtn;
+    private Button openYouTubeBrowserBtn;
+    private Button enableAdBlockingBtn;
     private Button settingsBtn;
     private BlockedAdsStats stats;
+    private boolean isAdBlockingEnabled = false;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class BlockedAdsActivity extends AppCompatActivity {
         initializeStats();
         setupEventListeners();
         updateStatsDisplay();
+        updateUI();
     }
     
     /**
@@ -34,7 +37,8 @@ public class BlockedAdsActivity extends AppCompatActivity {
      */
     private void initializeViews() {
         statsText = findViewById(R.id.statsText);
-        openBrowserBtn = findViewById(R.id.openBrowserBtn);
+        openYouTubeBrowserBtn = findViewById(R.id.openYouTubeBrowserBtn);
+        enableAdBlockingBtn = findViewById(R.id.enableAdBlockingBtn);
         settingsBtn = findViewById(R.id.settingsBtn);
     }
     
@@ -49,10 +53,17 @@ public class BlockedAdsActivity extends AppCompatActivity {
      * Setup event listeners
      */
     private void setupEventListeners() {
-        openBrowserBtn.setOnClickListener(new View.OnClickListener() {
+        openYouTubeBrowserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBrowser();
+                openYouTubeBrowser();
+            }
+        });
+        
+        enableAdBlockingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleAdBlocking();
             }
         });
         
@@ -65,16 +76,33 @@ public class BlockedAdsActivity extends AppCompatActivity {
     }
     
     /**
-     * Open the ad-blocking browser
+     * Open the YouTube browser with ad blocking
      */
-    private void openBrowser() {
+    private void openYouTubeBrowser() {
         try {
-            // Launch WebView activity
-            android.content.Intent intent = new android.content.Intent(this, BlockedAdsWebViewActivity.class);
+            // Launch YouTube browser activity
+            android.content.Intent intent = new android.content.Intent(this, YouTubeBrowserActivity.class);
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(this, "Failed to open browser: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed to open YouTube browser: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+    
+    /**
+     * Toggle ad blocking on/off
+     */
+    private void toggleAdBlocking() {
+        isAdBlockingEnabled = !isAdBlockingEnabled;
+        
+        if (isAdBlockingEnabled) {
+            enableAdBlockingBtn.setText("🔴 Disable Ad Blocking");
+            Toast.makeText(this, "Ad blocking enabled", Toast.LENGTH_SHORT).show();
+        } else {
+            enableAdBlockingBtn.setText("🔴 Enable Ad Blocking");
+            Toast.makeText(this, "Ad blocking disabled", Toast.LENGTH_SHORT).show();
+        }
+        
+        updateUI();
     }
     
     /**
@@ -92,16 +120,33 @@ public class BlockedAdsActivity extends AppCompatActivity {
         double dataSaved = stats.getDataSaved();
         
         String statsDisplay = String.format(
-            "🛡️ %d ads blocked today\n📊 %.1f MB data saved",
-            adsBlocked, dataSaved
+            "🛡️ %d ads blocked today\n📊 %.1f MB data saved\n🎥 %d YouTube sessions",
+            adsBlocked, dataSaved, stats.getYouTubeSessions()
         );
         
         statsText.setText(statsDisplay);
+    }
+    
+    /**
+     * Update UI elements
+     */
+    private void updateUI() {
+        // Update button text based on state
+        if (isAdBlockingEnabled) {
+            enableAdBlockingBtn.setText("🔴 Disable Ad Blocking");
+            enableAdBlockingBtn.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+        } else {
+            enableAdBlockingBtn.setText("🔴 Enable Ad Blocking");
+            enableAdBlockingBtn.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        }
+        
+        updateStatsDisplay();
     }
     
     @Override
     protected void onResume() {
         super.onResume();
         updateStatsDisplay();
+        updateUI();
     }
 }

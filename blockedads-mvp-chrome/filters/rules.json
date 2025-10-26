@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://googleadservices.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://googlesyndication.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://doubleclick.net/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://googletagmanager.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://googletagservices.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://google-analytics.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://facebook.com/tr*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://facebook.net/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 9,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://connect.facebook.net/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 10,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://amazon-adsystem.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 11,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://adsystem.amazon.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 12,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://aaxads.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 13,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://ads.yahoo.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 14,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://adsystem.yahoo.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://ads-twitter.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://twitter.com/i/adsct*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 17,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://ads-api.twitter.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 18,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://scorecardresearch.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 19,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://quantserve.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  },
+  {
+    "id": 20,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "*://outbrain.com/*",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "stylesheet", "xmlhttprequest", "media"]
+    }
+  }
+]

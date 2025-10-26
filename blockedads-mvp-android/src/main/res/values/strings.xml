@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BlockedAds</string>
-    <string name="app_description">Block ads, popups, and trackers for a cleaner browsing experience</string>
+    <string name="app_description">An efficient blocker for Android. Fast and lean.</string>
     
     <!-- Main Activity -->
+    <string name="main_title">BlockedAds</string>
     <string name="protection_status">🛡️ Protection Status</string>
     <string name="ads_blocked_today">ads blocked today</string>
-    <string name="data_saved">MB data saved</string>
+    <string name="data_saved_mb">MB data saved</string>
+    <string name="youtube_sessions">YouTube sessions</string>
+    
+    <!-- Quick Actions -->
     <string name="quick_actions">Quick Actions</string>
-    <string name="open_browser">🔴 Open Ad-Free Browser</string>
+    <string name="open_youtube_browser">🎥 Open YouTube Browser</string>
+    <string name="enable_ad_blocking">🔴 Enable Ad Blocking</string>
+    <string name="disable_ad_blocking">🔴 Disable Ad Blocking</string>
     <string name="settings">⚙️ Settings</string>
     
-    <!-- WebView Activity -->
-    <string name="enter_url">Enter URL or search...</string>
-    <string name="go">Go</string>
+    <!-- YouTube Browser -->
+    <string name="youtube_browser_title">YouTube Browser</string>
+    <string name="search_youtube_hint">Search YouTube or enter URL</string>
+    <string name="go_button">Go</string>
+    <string name="back_button">←</string>
+    <string name="forward_button">→</string>
+    <string name="refresh_button">↻</string>
+    
+    <!-- Statistics -->
     <string name="ads_blocked">ads blocked</string>
     <string name="mb_saved">MB saved</string>
+    <string name="youtube_sessions_count">YouTube sessions</string>
     
     <!-- Messages -->
+    <string name="ad_blocking_enabled">Ad blocking enabled</string>
+    <string name="ad_blocking_disabled">Ad blocking disabled</string>
     <string name="settings_coming_soon">Settings coming soon!</string>
-    <string name="failed_to_open_browser">Failed to open browser</string>
+    <string name="failed_open_youtube">Failed to open YouTube browser</string>
+    
+    <!-- Filter Lists -->
+    <string name="filter_lists">Filter Lists</string>
+    <string name="easylist">EasyList</string>
+    <string name="easyprivacy">EasyPrivacy</string>
+    <string name="ublock_filters">uBlock Origin Filters</string>
+    <string name="youtube_ad_blocking">YouTube Ad Blocking</string>
+    <string name="active">Active</string>
+    <string name="update">Update</string>
+    
+    <!-- Footer -->
+    <string name="app_version">BlockedAds v1.0.0</string>
+    <string name="fast_and_lean">Fast and lean</string>
     
     <!-- Permissions -->
     <string name="internet_permission">Internet access required for browsing</string>

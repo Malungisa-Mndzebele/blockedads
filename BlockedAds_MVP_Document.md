@@ -1,12 +1,12 @@
-# BlockedAds MVP - Minimum Viable Product Specification
+# BlockedAds MVP - Browser-Based YouTube Solution
 
 ## Executive Summary
 
 **Project**: BlockedAds MVP  
-**Goal**: Launch a functional ad blocker that demonstrates core value proposition  
-**Timeline**: 4-6 weeks  
-**Scope**: Chrome extension + basic mobile app  
-**Success Metric**: 1,000+ active users with 4.0+ star rating  
+**Goal**: Create a browser-based YouTube solution with integrated ad blocking  
+**Timeline**: 6-8 weeks  
+**Scope**: Android app with custom YouTube browser + Chrome extension  
+**Success Metric**: 5,000+ downloads with 4.0+ star rating  
 
 ---
 
@@ -14,141 +14,401 @@
 
 ### 1.1 What IS Included in MVP
 ✅ **Core Ad Blocking**
-- Block banner ads, popup ads, and video ads
-- Block tracking scripts and analytics
-- Basic element hiding for common ad containers
+- VPN-based ad blocking for system-wide protection
+- Custom YouTube browser with integrated ad blocking
+- Block ads in browsers (Chrome, Firefox, etc.)
+- Block ads in apps (social media, news apps, etc.)
+- DNS-level filtering for comprehensive coverage
+
+✅ **YouTube Browser Solution**
+- Custom WebView-based YouTube client
+- Integrated ad blocking specifically for YouTube
+- Background playback capability
+- Picture-in-picture mode
+- Download functionality
+- Custom YouTube interface
 
 ✅ **Essential User Interface**
-- Simple on/off toggle
-- Basic statistics (ads blocked, data saved)
-- Whitelist management (add/remove sites)
+- Simple on/off toggle for ad blocking
+- Real-time statistics (ads blocked, data saved)
+- YouTube browser launcher
+- Whitelist management (add/remove apps/domains)
+- Connection status indicator
 
 ✅ **Platform Coverage**
-- Chrome browser extension (primary)
-- Android mobile app (basic version)
+- Android app with custom YouTube browser (primary)
+- Chrome browser extension (complementary)
+- Works across all apps and browsers
 
 ✅ **Filter System**
 - EasyList integration (primary filter list)
-- Basic custom rule support
+- YouTube-specific ad blocking rules
+- DNS-based blocking for comprehensive coverage
 - Automatic filter updates
+- Custom rule support
 
 ### 1.2 What is NOT Included in MVP
 ❌ **Advanced Features**
-- Multiple filter list management
-- Advanced privacy protection
-- Malware blocking
+- Official YouTube app modification (technically impossible)
+- Root-level modifications
 - Desktop applications
-- Network-level blocking
 - Safari/Firefox extensions
 - Advanced statistics and analytics
 - User accounts or cloud sync
 - Enterprise features
+- Malware blocking
 
 ---
 
 ## 2. MVP Technical Architecture
 
-### 2.1 Core Components (MVP Only)
+### 2.1 Core Components (Browser-Based YouTube Solution)
 
 ```
 ┌─────────────────────────────────────┐
 │         MVP Architecture            │
 ├─────────────────────────────────────┤
-│ Chrome Extension                    │
+│ Android App (Primary)               │
+│ ├─ Custom YouTube Browser           │
+│ │  ├─ WebView with Ad Blocking      │
+│ │  ├─ Background Playback           │
+│ │  ├─ Picture-in-Picture            │
+│ │  └─ Download Manager               │
+│ ├─ Local VPN Service                │
+│ ├─ DNS Filter Engine                │
+│ ├─ EasyList Integration              │
+│ ├─ Statistics Tracker               │
+│ └─ Simple UI                        │
+├─────────────────────────────────────┤
+│ Chrome Extension (Complementary)    │
+│ ├─ YouTube Ad Blocking              │
 │ ├─ Basic Filter Engine              │
 │ ├─ EasyList Integration             │
 │ ├─ Simple Popup UI                  │
 │ └─ Whitelist Management             │
-├─────────────────────────────────────┤
-│ Android App                         │
-│ ├─ WebView Ad Blocking              │
-│ ├─ Basic Statistics                 │
-│ └─ Simple Settings                  │
 └─────────────────────────────────────┘
 ```
 
-### 2.2 MVP File Structure
+### 2.2 How It Actually Works
 
-#### 2.2.1 Chrome Extension (MVP)
-```
-blockedads-mvp-chrome/
-├── blockedads-manifest.json
-├── blockedads-background.js
-├── blockedads-core.js
-├── popup/
-│   ├── blockedads-popup.html
-│   ├── blockedads-popup.js
-│   └── blockedads-popup.css
-├── filters/
-│   └── blockedads-easylist.txt
-└── icons/
-    ├── icon16.png
-    ├── icon48.png
-    └── icon128.png
-```
+#### 2.2.1 Custom YouTube Browser
+**How Users Will Use It:**
+1. **Download & Install**: User downloads BlockedAds from Google Play Store
+2. **Open YouTube Browser**: User taps "Open YouTube Browser" button
+3. **Ad-Free Experience**: Custom WebView loads YouTube with integrated ad blocking
+4. **Enhanced Features**: Background playback, PiP mode, downloads
+5. **Statistics**: App shows real-time stats of blocked YouTube ads
 
-#### 2.2.2 Android App (MVP)
+**Technical Implementation:**
+- Custom WebView-based YouTube client
+- JavaScript injection to block YouTube ads
+- Custom CSS to hide ad elements
+- Background playback using MediaSession API
+- Picture-in-picture using Android PiP API
+
+#### 2.2.2 YouTube Ad Blocking Strategy
+**What We Block:**
+✅ **YouTube Web Ads:**
+- Pre-roll video ads
+- Mid-roll video ads
+- Banner ads
+- Overlay ads
+- Sponsored content
+- YouTube Premium prompts
+
+**How We Block:**
+- JavaScript injection to skip ad segments
+- CSS injection to hide ad containers
+- Network request blocking for ad resources
+- DOM manipulation to remove ad elements
+
+#### 2.2.3 Enhanced YouTube Features
+**Custom Features:**
+- **Background Playback**: Continue audio when app is minimized
+- **Picture-in-Picture**: Floating video window
+- **Download Manager**: Save videos for offline viewing
+- **Custom Interface**: Cleaner, ad-free YouTube experience
+- **Speed Controls**: Playback speed adjustment
+- **Volume Boost**: Audio enhancement
+
+### 2.3 MVP File Structure
+
+#### 2.3.1 Android App (Primary Focus)
 ```
 blockedads-mvp-android/
-├── src/
-│   ├── MainActivity.java
-│   ├── WebViewActivity.java
-│   ├── AdBlockWebView.java
-│   └── SimpleStats.java
-├── assets/
-│   └── blockedads-easylist.txt
-├── res/
+├── src/main/java/com/blockedads/
+│   ├── MainActivity.java              # Main UI
+│   ├── YouTubeBrowserActivity.java     # Custom YouTube browser
+│   ├── YouTubeWebViewClient.java      # WebView with ad blocking
+│   ├── BackgroundPlaybackService.java  # Background audio
+│   ├── PictureInPictureManager.java   # PiP functionality
+│   ├── DownloadManager.java           # Video downloads
+│   ├── VpnService.java               # VPN service implementation
+│   ├── AdBlockEngine.java            # DNS filtering engine
+│   ├── FilterManager.java            # EasyList integration
+│   ├── StatsTracker.java             # Statistics tracking
+│   └── WhitelistManager.java         # Whitelist functionality
+├── src/main/res/
 │   ├── layout/
-│   │   ├── activity_main.xml
-│   │   └── activity_webview.xml
-│   └── values/
-│       └── strings.xml
-└── blockedads-build.gradle
+│   │   ├── activity_main.xml         # Main UI layout
+│   │   ├── activity_youtube_browser.xml # YouTube browser layout
+│   │   └── vpn_service_notification.xml
+│   ├── values/
+│   │   ├── strings.xml               # App strings
+│   │   └── colors.xml                # App colors
+│   └── drawable/                     # Icons and graphics
+├── src/main/assets/
+│   ├── easylist.txt                  # Ad blocking rules
+│   ├── youtube_ad_blocker.js         # YouTube-specific blocking
+│   └── youtube_enhancer.js           # Enhanced features
+└── AndroidManifest.xml               # App permissions
+```
+
+#### 2.3.2 Chrome Extension (Secondary)
+```
+blockedads-mvp-chrome/
+├── manifest.json                     # Extension config
+├── background.js                     # Service worker
+├── content.js                        # Content script
+├── youtube-blocker.js                # YouTube-specific blocking
+├── popup/
+│   ├── popup.html                    # Popup UI
+│   ├── popup.js                      # Popup logic
+│   └── popup.css                     # Popup styling
+└── filters/
+    └── easylist.txt                  # Ad blocking rules
 ```
 
 ---
 
 ## 3. MVP Feature Specifications
 
-### 3.1 Chrome Extension Features
+### 3.1 Android App Features (Primary Focus)
 
-#### 3.1.1 Core Ad Blocking
+#### 3.1.1 Custom YouTube Browser
 **Specification:**
-- Block network requests matching EasyList rules
-- Hide DOM elements matching element hiding rules
-- Block popup windows and redirects
-- Target: 90%+ ad blocking effectiveness
+- WebView-based YouTube client with integrated ad blocking
+- JavaScript injection to skip video ads
+- CSS injection to hide ad elements
+- Target: 95%+ YouTube ad blocking effectiveness
 
 **Implementation:**
-```javascript
-// Core blocking logic
-class MVPFilterEngine {
-  constructor() {
-    this.rules = [];
-    this.loadEasyList();
-  }
-  
-  shouldBlock(url, type) {
-    return this.rules.some(rule => rule.matches(url, type));
-  }
-  
-  hideElements() {
-    // Hide elements matching EasyList hiding rules
-  }
+```java
+public class YouTubeBrowserActivity extends AppCompatActivity {
+    private WebView webView;
+    private YouTubeAdBlocker adBlocker;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_youtube_browser);
+        
+        webView = findViewById(R.id.webView);
+        setupWebView();
+        loadYouTube();
+    }
+    
+    private void setupWebView() {
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new YouTubeWebViewClient());
+        
+        // Inject ad blocking JavaScript
+        adBlocker = new YouTubeAdBlocker();
+        webView.addJavascriptInterface(adBlocker, "AdBlocker");
+    }
+    
+    private void loadYouTube() {
+        webView.loadUrl("https://m.youtube.com");
+    }
 }
 ```
 
-#### 3.1.2 User Interface
-**Popup Interface:**
+#### 3.1.2 YouTube Ad Blocking Engine
+**JavaScript Injection:**
+```javascript
+// YouTube Ad Blocker Script
+class YouTubeAdBlocker {
+    constructor() {
+        this.blockPreRollAds();
+        this.blockMidRollAds();
+        this.blockBannerAds();
+        this.blockOverlayAds();
+    }
+    
+    blockPreRollAds() {
+        // Skip pre-roll ads automatically
+        const observer = new MutationObserver(() => {
+            const skipButton = document.querySelector('.ytp-ad-skip-button');
+            if (skipButton) {
+                skipButton.click();
+            }
+            
+            // Skip ad countdown
+            const countdown = document.querySelector('.ytp-ad-text');
+            if (countdown) {
+                const video = document.querySelector('video');
+                if (video) {
+                    video.currentTime = video.duration;
+                }
+            }
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+    
+    blockMidRollAds() {
+        // Block mid-roll ads
+        const video = document.querySelector('video');
+        if (video) {
+            video.addEventListener('timeupdate', () => {
+                if (this.isAdPlaying()) {
+                    this.skipToNextSegment();
+                }
+            });
+        }
+    }
+    
+    blockBannerAds() {
+        // Hide banner ads
+        const bannerSelectors = [
+            '.ytd-promoted-sparkles-web-renderer',
+            '.ytd-ad-slot-renderer',
+            '.ytd-promoted-video-renderer'
+        ];
+        
+        bannerSelectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => el.style.display = 'none');
+        });
+    }
+}
+```
+
+#### 3.1.3 Enhanced YouTube Features
+**Background Playback:**
+```java
+public class BackgroundPlaybackService extends Service {
+    private MediaSessionCompat mediaSession;
+    
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setupMediaSession();
+    }
+    
+    private void setupMediaSession() {
+        mediaSession = new MediaSessionCompat(this, "YouTubeBackground");
+        mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
+                             MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        
+        MediaSessionCompat.Callback callback = new MediaSessionCompat.Callback() {
+            @Override
+            public void onPlay() {
+                // Resume YouTube playback
+                resumeYouTubePlayback();
+            }
+            
+            @Override
+            public void onPause() {
+                // Pause YouTube playback
+                pauseYouTubePlayback();
+            }
+        };
+        
+        mediaSession.setCallback(callback);
+        mediaSession.setActive(true);
+    }
+}
+```
+
+**Picture-in-Picture:**
+```java
+public class PictureInPictureManager {
+    public void enterPiPMode(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            PictureInPictureParams params = new PictureInPictureParams.Builder()
+                .setAspectRatio(new Rational(16, 9))
+                .build();
+            activity.enterPictureInPictureMode(params);
+        }
+    }
+}
+```
+
+#### 3.1.4 User Interface
+**Main Screen:**
+```
+┌─────────────────────────────────────┐
+│ 🛡️ BlockedAds              [⚙️] [ℹ️] │
+├─────────────────────────────────────┤
+│ Status: ● Active                     │
+│ YouTube Ads Blocked: 47              │
+│ Data Saved: 2.3 MB                   │
+│                                     │
+│ [🎥 Open YouTube Browser]           │
+│ [🔴 Enable System Ad Blocking]      │
+│                                     │
+│ Quick Stats:                         │
+│ • YouTube Sessions: 12                │
+│ • Total Ads Blocked: 1,247           │
+│ • Last Update: 2 min ago             │
+└─────────────────────────────────────┘
+```
+
+**YouTube Browser Interface:**
+```
+┌─────────────────────────────────────┐
+│ ← [YouTube]              [⚙️] [📱] [⬇] │
+├─────────────────────────────────────┤
+│                                     │
+│        🎥 Video Player             │
+│                                     │
+│ [▶️] [⏸️] [⏭️] [🔊] [📱] [⬇] [⚙️]    │
+│                                     │
+│ Video Title                          │
+│ Channel Name                         │
+│                                     │
+│ [👍] [👎] [📤] [💾] [📋]              │
+└─────────────────────────────────────┘
+```
+
+### 3.2 Chrome Extension Features (Secondary)
+
+#### 3.2.1 YouTube Ad Blocking
+**Specification:**
+- Block YouTube ads in Chrome browser
+- Skip pre-roll and mid-roll ads
+- Hide banner and overlay ads
+- Target: 95%+ YouTube ad blocking effectiveness
+
+**Implementation:**
+```javascript
+// Chrome Extension YouTube Blocker
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "blockYouTubeAds") {
+        injectYouTubeBlocker();
+    }
+});
+
+function injectYouTubeBlocker() {
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL('youtube-blocker.js');
+    document.head.appendChild(script);
+}
+```
+
+#### 3.2.2 Popup Interface
+**YouTube-Focused Popup:**
 ```
 ┌─────────────────────────────────────┐
 │ BlockedAds                 [⚙️] [❌] │
 ├─────────────────────────────────────┤
-│ 🛡️ 247 ads blocked today            │
-│ 📊 1.2MB data saved                 │
-├─────────────────────────────────────┤
-│ [🔴] Blocking: ON                   │
-│ [⚪] Whitelist Site                 │
+│ Status: ● Active                     │
+│ YouTube Ads Blocked: 23              │
+│ Data Saved: 1.2 MB                   │
+│                                     │
+│ [🎥 Open YouTube] [🔴 Disable]       │
+│ [⚪ Whitelist] [📊 Stats]            │
 └─────────────────────────────────────┘
 ```
 
@@ -218,33 +478,123 @@ public class AdBlockWebView extends WebViewClient {
 
 ---
 
-## 4. MVP Development Timeline
+## 4. YouTube Ad Blocking Reality Check
 
-### Week 1: Foundation & Chrome Extension Core
+### 4.1 Why YouTube App Ad Blocking Doesn't Work
+
+**Technical Limitations:**
+- YouTube ads are integrated directly into the video stream
+- Ads are served from the same servers as content (youtube.com)
+- YouTube uses encrypted connections that can't be easily intercepted
+- The YouTube app performs integrity checks to prevent modification
+
+**Legal/Policy Issues:**
+- Modifying the YouTube app violates Google's Terms of Service
+- Google actively updates YouTube to prevent ad blocking
+- Could result in account suspension or legal action
+
+### 4.2 What Our App WILL Block
+
+✅ **Works Great (85-95% effectiveness):**
+- **Web Browsers**: Chrome, Firefox, Edge, Safari
+- **Social Media Apps**: Facebook, Instagram, Twitter, TikTok
+- **News Apps**: CNN, BBC, Reuters, local news apps
+- **Shopping Apps**: Amazon, eBay, Walmart, Target
+- **Games**: Most mobile games with banner ads
+- **Other Apps**: Weather, productivity, entertainment apps
+
+❌ **Doesn't Work:**
+- YouTube app ads (integrated into video stream)
+- Some encrypted video ads in other apps
+- Apps that serve ads from their own CDN
+
+### 4.3 Alternative Solutions for YouTube
+
+**For Users Who Want Ad-Free YouTube:**
+
+1. **YouTube Premium** (Official Solution)
+   - $11.99/month for ad-free experience
+   - Supports content creators
+   - Includes offline downloads and background play
+
+2. **Alternative YouTube Clients** (Unofficial)
+   - NewPipe (open source, F-Droid)
+   - YouTube Vanced (discontinued but still available)
+   - These access YouTube content without ads
+   - ⚠️ May violate YouTube's Terms of Service
+
+3. **Browser-Based YouTube** (Our App Helps)
+   - Use YouTube in Chrome/Firefox with our extension
+   - Our ad blocker will block YouTube ads in browsers
+   - Works great for desktop/laptop users
+
+### 4.4 Honest User Communication
+
+**What We Tell Users:**
+- "BlockedAds blocks ads in 95% of apps and websites"
+- "YouTube app ads require YouTube Premium for official ad-free experience"
+- "Use YouTube in your browser for ad-free experience with our extension"
+- "We're working on additional features for video ad blocking"
+
+---
+
+## 5. MVP Development Timeline
+
+### Week 1: Foundation & YouTube Browser Core
 **Days 1-2: Project Setup**
-- [ ] Initialize Chrome extension project
+- [ ] Initialize Android project with WebView permissions
 - [ ] Set up development environment
-- [ ] Create basic manifest.json
-- [ ] Implement basic filter engine
+- [ ] Create basic YouTube browser structure
 
-**Days 3-5: Core Functionality**
-- [ ] Integrate EasyList parsing
-- [ ] Implement network request blocking
-- [ ] Add element hiding functionality
-- [ ] Basic popup interface
+**Days 3-4: YouTube Browser Implementation**
+- [ ] Implement WebView-based YouTube client
+- [ ] Create custom WebViewClient for ad blocking
+- [ ] Test YouTube loading and basic functionality
+- [ ] Add basic UI controls
 
-**Days 6-7: Testing & Polish**
-- [ ] Test on popular websites
-- [ ] Fix blocking issues
-- [ ] Basic statistics tracking
-- [ ] Chrome Web Store preparation
+**Days 5-7: YouTube Ad Blocking Engine**
+- [ ] Implement JavaScript injection system
+- [ ] Create YouTube-specific ad blocking scripts
+- [ ] Test pre-roll ad blocking
+- [ ] Test banner ad hiding
 
-### Week 2: Chrome Extension Features
-**Days 8-10: User Interface**
-- [ ] Complete popup interface
-- [ ] Settings page implementation
-- [ ] Whitelist management
-- [ ] Statistics display
+### Week 2: Enhanced YouTube Features & Chrome Extension
+**Days 8-10: Advanced YouTube Features**
+- [ ] Implement background playback
+- [ ] Add picture-in-picture mode
+- [ ] Create download manager
+- [ ] Add custom YouTube interface
+
+**Days 11-12: Chrome Extension YouTube Blocker**
+- [ ] Implement YouTube ad blocking in Chrome
+- [ ] Create popup interface
+- [ ] Add YouTube-specific statistics
+- [ ] Test browser-based YouTube blocking
+
+**Days 13-14: Integration & Testing**
+- [ ] Test YouTube browser across different videos
+- [ ] Test Chrome extension on YouTube
+- [ ] Fix ad blocking issues
+- [ ] Optimize performance
+
+### Week 3: Advanced Features & Polish
+**Days 15-17: Advanced Android Features**
+- [ ] Add statistics tracking for YouTube
+- [ ] Implement whitelist functionality
+- [ ] Add filter update mechanism
+- [ ] Create settings screen
+
+**Days 18-19: Chrome Extension Polish**
+- [ ] Add YouTube statistics to popup
+- [ ] Implement whitelist management
+- [ ] Add settings page
+- [ ] Improve UI/UX
+
+**Days 20-21: Cross-Platform Testing**
+- [ ] Test on multiple Android devices
+- [ ] Test Chrome extension on different YouTube pages
+- [ ] Performance optimization
+- [ ] Bug fixes and improvements
 
 **Days 11-12: Advanced Features**
 - [ ] Custom rule support
@@ -328,7 +678,320 @@ public class AdBlockWebView extends WebViewClient {
 
 ---
 
-## 6. MVP Technical Requirements
+## 6. Technical Implementation (Based on uBlock Origin)
+
+### 6.1 Core Architecture (Inspired by uBlock Origin)
+
+**Key Principles from uBlock Origin:**
+- **CPU and memory efficient**: Minimal resource usage
+- **Wide-spectrum content blocking**: Blocks ads, trackers, coin miners, popups
+- **EasyList filter syntax**: Industry standard filter format
+- **Custom rules support**: User-defined blocking rules
+- **Privacy-focused**: Neutralizes privacy-invading methods
+
+**Our Implementation:**
+```javascript
+// Core Filter Engine (inspired by uBlock Origin)
+class BlockedAdsFilterEngine {
+    constructor() {
+        this.staticFilters = new Map();
+        this.dynamicFilters = new Map();
+        this.cosmeticFilters = new Map();
+        this.whitelist = new Set();
+        this.loadFilterLists();
+    }
+    
+    // Load filter lists like uBlock Origin
+    async loadFilterLists() {
+        const filterLists = [
+            'https://easylist.to/easylist/easylist.txt',
+            'https://easylist.to/easylist/easyprivacy.txt',
+            'https://pgl.yoyo.org/adservers/serverlist.php',
+            'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt'
+        ];
+        
+        for (const url of filterLists) {
+            await this.loadFilterList(url);
+        }
+    }
+    
+    // Parse EasyList syntax (same as uBlock Origin)
+    parseFilterRule(rule) {
+        if (rule.startsWith('!')) return null; // Comment
+        if (rule.startsWith('@@')) return this.parseExceptionRule(rule);
+        if (rule.includes('##')) return this.parseCosmeticRule(rule);
+        return this.parseNetworkRule(rule);
+    }
+}
+```
+
+### 6.2 YouTube-Specific Blocking (Enhanced)
+
+**Advanced YouTube Ad Blocking:**
+```javascript
+// YouTube Ad Blocker (enhanced with uBlock Origin techniques)
+class YouTubeAdBlocker {
+    constructor() {
+        this.adSelectors = [
+            // Pre-roll ads
+            '.ytp-ad-player-overlay',
+            '.ytp-ad-text',
+            '.ytp-ad-skip-button',
+            
+            // Mid-roll ads
+            '.ytp-ad-module',
+            '.ytp-ad-overlay-container',
+            
+            // Banner ads
+            '.ytd-promoted-sparkles-web-renderer',
+            '.ytd-ad-slot-renderer',
+            '.ytd-promoted-video-renderer',
+            
+            // Sponsored content
+            '.ytd-video-masthead-ad-v3-renderer',
+            '.ytd-compact-promoted-video-renderer'
+        ];
+        
+        this.init();
+    }
+    
+    init() {
+        this.blockPreRollAds();
+        this.blockMidRollAds();
+        this.blockBannerAds();
+        this.blockSponsoredContent();
+        this.setupMutationObserver();
+    }
+    
+    // Advanced pre-roll ad blocking
+    blockPreRollAds() {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    // Skip button detection
+                    const skipButton = document.querySelector('.ytp-ad-skip-button');
+                    if (skipButton && !skipButton.disabled) {
+                        skipButton.click();
+                        this.recordBlockedAd('pre-roll');
+                    }
+                    
+                    // Ad countdown bypass
+                    const adText = document.querySelector('.ytp-ad-text');
+                    if (adText) {
+                        const video = document.querySelector('video');
+                        if (video && video.duration > 0) {
+                            // Skip to end of ad
+                            video.currentTime = video.duration - 0.1;
+                            this.recordBlockedAd('countdown');
+                        }
+                    }
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+    }
+    
+    // Mid-roll ad detection and blocking
+    blockMidRollAds() {
+        const video = document.querySelector('video');
+        if (!video) return;
+        
+        let lastTime = 0;
+        let adPlaying = false;
+        
+        video.addEventListener('timeupdate', () => {
+            const currentTime = video.currentTime;
+            
+            // Detect ad interruption
+            if (Math.abs(currentTime - lastTime) > 1 && !video.paused) {
+                if (this.isAdPlaying()) {
+                    adPlaying = true;
+                    this.skipToNextSegment(video);
+                    this.recordBlockedAd('mid-roll');
+                }
+            }
+            
+            lastTime = currentTime;
+        });
+    }
+    
+    // Banner ad removal
+    blockBannerAds() {
+        this.adSelectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.style.display = 'none';
+                element.remove();
+                this.recordBlockedAd('banner');
+            });
+        });
+    }
+    
+    // Sponsored content filtering
+    blockSponsoredContent() {
+        const sponsoredSelectors = [
+            '[aria-label*="sponsored"]',
+            '[aria-label*="promoted"]',
+            '.ytd-promoted-sparkles-web-renderer',
+            '.ytd-compact-promoted-video-renderer'
+        ];
+        
+        sponsoredSelectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.style.display = 'none';
+                this.recordBlockedAd('sponsored');
+            });
+        });
+    }
+    
+    // Setup continuous monitoring
+    setupMutationObserver() {
+        const observer = new MutationObserver(() => {
+            this.blockBannerAds();
+            this.blockSponsoredContent();
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    // Utility methods
+    isAdPlaying() {
+        return document.querySelector('.ytp-ad-player-overlay') !== null ||
+               document.querySelector('.ytp-ad-module') !== null;
+    }
+    
+    skipToNextSegment(video) {
+        // Skip to next video segment
+        video.currentTime += 5;
+    }
+    
+    recordBlockedAd(type) {
+        // Send statistics to background script
+        chrome.runtime.sendMessage({
+            type: 'YOUTUBE_AD_BLOCKED',
+            adType: type,
+            timestamp: Date.now()
+        });
+    }
+}
+```
+
+### 6.3 Performance Optimization (uBlock Origin Style)
+
+**Memory and CPU Efficiency:**
+```javascript
+// Efficient filter matching (inspired by uBlock Origin)
+class EfficientFilterMatcher {
+    constructor() {
+        this.hostnameCache = new Map();
+        this.regexCache = new Map();
+        this.selectorCache = new Map();
+    }
+    
+    // Cache hostname lookups
+    getHostname(url) {
+        if (this.hostnameCache.has(url)) {
+            return this.hostnameCache.get(url);
+        }
+        
+        try {
+            const hostname = new URL(url).hostname;
+            this.hostnameCache.set(url, hostname);
+            return hostname;
+        } catch {
+            return '';
+        }
+    }
+    
+    // Efficient regex compilation
+    compileRegex(pattern) {
+        if (this.regexCache.has(pattern)) {
+            return this.regexCache.get(pattern);
+        }
+        
+        try {
+            const regex = new RegExp(pattern, 'i');
+            this.regexCache.set(pattern, regex);
+            return regex;
+        } catch {
+            return null;
+        }
+    }
+    
+    // Batch DOM operations
+    batchHideElements(selectors) {
+        const elements = [];
+        selectors.forEach(selector => {
+            elements.push(...document.querySelectorAll(selector));
+        });
+        
+        // Single DOM update
+        elements.forEach(element => {
+            element.style.display = 'none';
+        });
+    }
+}
+```
+
+### 6.4 Filter List Management (uBlock Origin Compatible)
+
+**Filter List Integration:**
+```javascript
+// Filter List Manager (compatible with uBlock Origin lists)
+class FilterListManager {
+    constructor() {
+        this.filterLists = [
+            {
+                name: 'EasyList',
+                url: 'https://easylist.to/easylist/easylist.txt',
+                enabled: true
+            },
+            {
+                name: 'EasyPrivacy',
+                url: 'https://easylist.to/easylist/easyprivacy.txt',
+                enabled: true
+            },
+            {
+                name: 'uBlock Origin Filters',
+                url: 'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt',
+                enabled: true
+            },
+            {
+                name: 'YouTube Ad Blocking',
+                url: 'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/youtube.txt',
+                enabled: true
+            }
+        ];
+    }
+    
+    async updateFilterLists() {
+        for (const list of this.filterLists) {
+            if (list.enabled) {
+                await this.downloadFilterList(list);
+            }
+        }
+    }
+    
+    async downloadFilterList(list) {
+        try {
+            const response = await fetch(list.url);
+            const text = await response.text();
+            this.parseFilterList(text, list.name);
+        } catch (error) {
+            console.error(`Failed to download ${list.name}:`, error);
+        }
+    }
+}
+```
 
 ### 6.1 Chrome Extension Requirements
 **Manifest V3 Compliance:**
@@ -392,7 +1055,98 @@ public class AdBlockWebView extends WebViewClient {
 
 ---
 
-## 7. MVP Risk Assessment
+## 7. Leveraging uBlock Origin's Success
+
+### 7.1 Why uBlock Origin is the Perfect Reference
+
+**uBlock Origin's Success Metrics:**
+- **59.3k GitHub stars** - Massive community support
+- **3.8k forks** - Active development community
+- **"Fast and lean"** - Minimal resource usage
+- **Wide-spectrum blocking** - Comprehensive ad blocking
+- **Privacy-focused** - Neutralizes privacy-invading methods
+
+**Key Lessons from uBlock Origin:**
+1. **Performance First**: CPU and memory efficiency are crucial
+2. **Community-Driven**: Open source with active contributors
+3. **Filter List Compatibility**: Uses industry-standard EasyList syntax
+4. **Privacy Focus**: Primary goal is privacy protection, not just ad blocking
+5. **User Control**: Advanced users can customize everything
+
+### 7.2 Our Implementation Strategy
+
+**Adopt uBlock Origin's Proven Techniques:**
+
+1. **Filter List Integration**
+   - Use same filter lists as uBlock Origin
+   - Compatible with EasyList syntax
+   - Support for custom user rules
+
+2. **Performance Optimization**
+   - Efficient regex compilation and caching
+   - Batch DOM operations
+   - Minimal memory footprint
+
+3. **YouTube-Specific Enhancements**
+   - Build on uBlock Origin's YouTube blocking
+   - Add custom YouTube features (background playback, PiP)
+   - Enhanced ad detection algorithms
+
+4. **Privacy Protection**
+   - Block trackers and analytics
+   - Prevent fingerprinting
+   - Neutralize privacy-invading methods
+
+### 7.3 Competitive Advantages
+
+**What We Add Beyond uBlock Origin:**
+
+✅ **Mobile-First Design**
+- Custom Android YouTube browser
+- Background playback capability
+- Picture-in-picture mode
+- Download functionality
+
+✅ **Enhanced YouTube Experience**
+- Dedicated YouTube interface
+- Advanced ad blocking for YouTube
+- Custom playback controls
+- Offline video management
+
+✅ **Simplified User Experience**
+- One-tap YouTube browser launch
+- Automatic ad blocking setup
+- Real-time statistics
+- Beginner-friendly interface
+
+### 7.4 Technical Compatibility
+
+**Filter List Compatibility:**
+```javascript
+// Use uBlock Origin's filter lists directly
+const uBlockFilterLists = [
+    'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt',
+    'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt',
+    'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt',
+    'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/youtube.txt'
+];
+
+// Parse using same syntax as uBlock Origin
+function parseUBORule(rule) {
+    // Same parsing logic as uBlock Origin
+    // Ensures 100% compatibility
+}
+```
+
+**Performance Benchmarks (Target uBlock Origin Levels):**
+- **Memory Usage**: <20MB (same as uBlock Origin)
+- **CPU Impact**: <1% during normal browsing
+- **Filter Processing**: <10ms per page load
+- **YouTube Ad Blocking**: 95%+ effectiveness
+
+---
+
+## 8. MVP Technical Requirements
 
 ### 7.1 Technical Risks
 | Risk | Probability | Impact | Mitigation |

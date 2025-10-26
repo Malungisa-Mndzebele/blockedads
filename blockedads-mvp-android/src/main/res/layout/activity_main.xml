@@ -55,7 +55,7 @@
             android:id="@+id/statsText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🛡️ 0 ads blocked today\n📊 0.0 MB data saved"
+            android:text="🛡️ 0 ads blocked today\n📊 0.0 MB data saved\n🎥 0 YouTube sessions"
             android:textSize="16sp"
             android:textColor="#6c757d"
             android:lineSpacingExtra="4dp" />
@@ -73,13 +73,23 @@
         android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/openBrowserBtn"
+        android:id="@+id/openYouTubeBrowserBtn"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="🔴 Open Ad-Free Browser"
+        android:text="🎥 Open YouTube Browser"
         android:textSize="16sp"
         android:textStyle="bold"
         android:background="@drawable/primary_button"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/enableAdBlockingBtn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="🔴 Enable Ad Blocking"
+        android:textSize="14sp"
+        android:background="@drawable/secondary_button"
         android:textColor="#ffffff"
         android:layout_marginBottom="12dp" />
 
