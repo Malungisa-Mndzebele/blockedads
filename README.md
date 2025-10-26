@@ -33,33 +33,94 @@ BlockedAds is a comprehensive ad blocking solution inspired by [uBlock Origin](h
 - **Statistics Tracking**: Real-time ad blocking and data saving metrics
 - **Background Services**: Ad blocking and filter list management
 
-## Installation
+## 🚀 **Super Easy Installation - Just Like uBlock Origin!**
 
-### Chrome Extension
-1. Download the extension from the Chrome Web Store
-2. Click "Add to Chrome" to install
-3. The extension will automatically start blocking ads
+### **🎯 One-Click Install (Recommended)**
+**Run the installer and start blocking ads in 30 seconds!**
 
-### Android App
-1. Download the APK from the releases page
-2. Enable "Install from unknown sources" in Android settings
-3. Install the APK file
-4. Open the app and enable ad blocking
+```bash
+# Linux/Mac users
+chmod +x install.sh
+./install.sh
 
-## Usage
+# Windows users
+install.bat
+```
 
-### Chrome Extension
-- Click the BlockedAds icon in your browser toolbar
-- View real-time statistics (ads blocked, data saved)
-- Toggle ad blocking on/off
-- Manage whitelist and filter lists
-- Launch YouTube browser for ad-free viewing
+**That's it!** The installer will:
+- ✅ Detect your Chrome browser
+- ✅ Open Chrome Extensions page
+- ✅ Guide you through loading BlockedAds
+- ✅ Start blocking ads immediately
 
-### Android App
-- Open the BlockedAds app
-- View your protection status and statistics
-- Tap "Open YouTube Browser" for ad-free YouTube
-- Enable/disable ad blocking as needed
+### **📱 Android Users**
+**Get ad-free YouTube in 2 minutes!**
+
+```bash
+# Build APK
+cd blockedads-mvp-android
+# Import into Android Studio → Build → Install APK
+```
+
+**Then:**
+1. Open BlockedAds app
+2. Tap "Open YouTube Browser" 
+3. **Enjoy ad-free YouTube!**
+
+### **🔧 Manual Installation**
+**For advanced users who want full control**
+
+#### **Chrome Extension**
+1. **Download**: `git clone https://github.com/Malungisa-Mndzebele/blockedads.git`
+2. **Load**: Chrome → `chrome://extensions/` → Developer mode → Load unpacked → Select `blockedads-mvp-chrome`
+3. **Done!** Start blocking ads
+
+#### **Android App**
+1. **Build**: Import `blockedads-mvp-android` into Android Studio
+2. **Install**: Build APK → Install on device
+3. **Use**: Open app → YouTube Browser → Ad-free YouTube
+
+## 🎯 **How to Use BlockedAds (Just Like uBlock Origin!)**
+
+### **🖱️ Chrome Extension Usage**
+**Works exactly like uBlock Origin - no learning curve!**
+
+1. **Click the BlockedAds icon** in your toolbar
+2. **See real-time stats**: Ads blocked, data saved, runtime
+3. **Toggle on/off**: Power button just like uBlock Origin
+4. **Manage whitelist**: Add sites to allow ads
+5. **Update filters**: Keep blocking rules current
+6. **That's it!** No configuration needed
+
+### **📱 Android App Usage**
+**Custom YouTube browser with built-in ad blocking**
+
+1. **Open BlockedAds app**
+2. **Tap "Open YouTube Browser"**
+3. **Browse YouTube ad-free**
+4. **View statistics** in the app
+5. **Enjoy background playback**
+
+### **⚡ What Gets Blocked Automatically**
+- ✅ **Google Ads** (googleadservices.com, doubleclick.net)
+- ✅ **Facebook Ads** (facebook.com/tr, facebook.net)
+- ✅ **Amazon Ads** (amazon-adsystem.com)
+- ✅ **Yahoo Ads** (ads.yahoo.com)
+- ✅ **Twitter Ads** (ads-twitter.com)
+- ✅ **Analytics** (google-analytics.com, googletagmanager.com)
+- ✅ **YouTube Ads** (pre-roll, mid-roll, banners, sponsored)
+- ✅ **Popups and malware**
+- ✅ **Tracking scripts**
+
+### **🎥 YouTube Ad Blocking (BlockedAds Exclusive!)**
+**Goes beyond uBlock Origin with dedicated YouTube features:**
+
+- **Pre-roll Ads**: Automatically skipped
+- **Mid-roll Ads**: Detected and bypassed  
+- **Banner Ads**: Hidden from interface
+- **Sponsored Content**: Filtered out
+- **Background Playback**: Play YouTube in background
+- **Picture-in-Picture**: Multi-tasking support
 
 ## Filter Lists
 
